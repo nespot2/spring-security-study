@@ -16,13 +16,16 @@ import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.factory.PasswordEncoderFactories
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.provisioning.InMemoryUserDetailsManager
+import org.springframework.security.test.context.support.WithMockUser
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.formLogin
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user
 import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.test.context.web.WebAppConfiguration
 import org.springframework.test.web.servlet.MockMvc
+import org.springframework.test.web.servlet.get
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
@@ -69,6 +72,22 @@ class FormLoginTests @Autowired constructor(
             ?.perform(get("/"))
             ?.andExpect(status().isFound)
             ?.andExpect(redirectedUrl("http://localhost/login"))
+    }
+
+    @Test
+    fun `access private with authentication`() {
+        this.mvc
+            ?.get("/") {
+                with(user("user"))
+            }?.andExpect { status().isOk }
+    }
+
+    @Test
+    @WithMockUser
+    fun `access private with @WithMockUser`() {
+        this.mvc
+            ?.get("/")
+            ?.andExpect { status().isOk }
     }
 
     @Test
