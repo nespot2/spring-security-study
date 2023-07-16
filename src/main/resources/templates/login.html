@@ -1,0 +1,29 @@
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Please Log In</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+<h1>Please Log In</h1>
+<div th:if="${param.error}">
+    잘못된 계정 정보입니다.
+</div>
+<div th:if="${param.logout}">
+    You have been logged out.
+</div>
+<div>
+    <h4><a th:href="@{/oauth2/authorization/google}">Login with Google</a></h4>
+</div>
+<form th:action="@{/login}" method="post">
+    <div>
+        <label for="username"></label>
+        <input id="username" type="text" name="username" placeholder="Username"/>
+    </div>
+    <div>
+        <label for="password"></label>
+        <input id="password" type="password" name="password" placeholder="Password"/>
+    </div>
+    <input type="submit" value="Log in"/>
+</form>
+</body>
+</html>

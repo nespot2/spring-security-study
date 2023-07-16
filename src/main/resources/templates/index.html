@@ -1,10 +1,22 @@
 <!DOCTYPE html>
-<html lang="kor" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>main</title>
 </head>
 <body>
-<div><span th:text="${name}"></span></div>
+hello world!
+
+<div sec:authorize="isAuthenticated()">
+    <div>
+        <div>안녕하세요. <span sec:authentication="name">Bob</span>님</div>
+    </div>
+    <div>
+        <form method="post" th:action="@{/logout}">
+            <button>로그아웃</button>
+        </form>
+    </div>
+</div>
+
 </body>
 </html>
