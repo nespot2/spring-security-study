@@ -1,5 +1,6 @@
 package com.example.springsecuritystudy.domain
 
+import com.example.springsecuritystudy.DomainTestSupport
 import com.example.springsecuritystudy.config.QuerydslConfig
 import com.example.springsecuritystudy.domain.admin.*
 import org.assertj.core.api.Assertions.assertThat
@@ -16,7 +17,7 @@ import org.springframework.context.annotation.Import
 @Import(QuerydslConfig::class)
 internal class AdminRepositoryTest @Autowired constructor(
     private val adminRepository: AdminRepository
-) {
+) : DomainTestSupport() {
 
     @DisplayName("이메일 & 타입을 이용하여 관리자를 조회한다.")
     @Test

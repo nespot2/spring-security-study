@@ -1,25 +1,22 @@
 package com.example.springsecuritystudy.service.login
 
-import com.example.springsecuritystudy.config.QuerydslConfig
+import com.example.springsecuritystudy.IntegrationTestSupport
 import com.example.springsecuritystudy.domain.admin.*
 import org.assertj.core.api.Assertions.*
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
-import org.springframework.context.annotation.Import
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 
 /**
  * @author nespot2
  */
-@DataJpaTest
-@Import(QuerydslConfig::class, UserDetailsServiceImpl::class)
 class UserDetailsServiceImplTest @Autowired constructor(
     private val userDetailsService: UserDetailsServiceImpl,
     private val adminRepository: AdminRepository
-) {
+) : IntegrationTestSupport() {
 
     @Test
     @DisplayName("이메일을 이용하여 사용자를 조회한다.")
@@ -34,6 +31,11 @@ class UserDetailsServiceImplTest @Autowired constructor(
         //then
         assertThat(userDetails).isNotNull
         assertThat(userDetails.username).isEqualTo(email)
+    }
+
+    @AfterEach
+    fun tearDown() {
+        this.adminRepository.deleteAll()
     }
 
     @Test

@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "3.1.1"
+    id("org.springframework.boot") version "3.1.2"
     id("io.spring.dependency-management") version "1.1.0"
     kotlin("jvm") version "1.8.22"
     kotlin("plugin.spring") version "1.8.22"
@@ -37,6 +37,7 @@ dependencies {
     implementation("org.thymeleaf.extras:thymeleaf-extras-springsecurity6")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
 
     // h2
     runtimeOnly("com.h2database:h2")
@@ -45,6 +46,8 @@ dependencies {
     implementation("com.querydsl:querydsl-jpa:$qeurydslVersion:jakarta")
     kapt("com.querydsl:querydsl-apt:$qeurydslVersion:jakarta")
     kapt("org.springframework.boot:spring-boot-configuration-processor")
+
+
 }
 
 tasks.withType<KotlinCompile> {

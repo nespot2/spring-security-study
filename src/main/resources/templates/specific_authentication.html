@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <title>specific authentication</title>
+</head>
+<body>
+
+<div sec:authorize="isAuthenticated()">
+    <div id="email" th:text="${email}">이메일</div>
+    <div id="role" th:text="${role}">role</div>
+</div>
+
+</body>
+</html>
